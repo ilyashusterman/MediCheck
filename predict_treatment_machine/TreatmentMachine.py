@@ -13,8 +13,8 @@ def beautify_treatment(treatment, treatment_dict):
 
 def get_input_diagnosis():
     return {'diagnosis': input("what's your diagnosis?"),
-            'age': input("what's your age?"),
-            'gender': input("what's your gender? f/m")}
+            'age': int(input("what's your age?")),
+            'sex': input("what's your gender? f/m")}
 
 
 def main():
@@ -59,7 +59,7 @@ def main():
                                                          num_epochs=1000,
                                                          shuffle=True)
     feature_columns_list = list(feature_columns.values())
-    units = len(feature_columns_list)
+
     label_y = treatment_dict.keys()
     print('values={} len={}'.format(treatment_dict.keys(), len(label_y)))
     model = tf.estimator.LinearClassifier(
@@ -75,17 +75,19 @@ def main():
     predictions = list(model.predict(input_fn=prediction_function))
     predictions = [pred['class_ids'][0] for pred in predictions]
     print(classification_report(y_test, predictions))
-    x_test_question = pd.DataFrame([get_input_diagnosis()])
+    question_data = get_input_diagnosis()
+    # print (question_data)
+    x_test_question = pd.DataFrame([question_data])
     prediction_function_question = \
         tf.estimator.inputs.pandas_input_fn(x=x_test_question,
                                             batch_size=
-                                            x_test_question.shape[
-                                                0],
+                                            x_test_question.shape[0],
                                             shuffle=False)
     predictions = list(model.predict(input_fn=prediction_function_question))
-    predictions = [pred['class_ids'][0] for pred in predictions]
-    res = dict((v, k) for k, v in a.iteritems())
-    return
+    res_treatment_dict = dict((v, k) for k, v in treatment_dict.items())
+    predictions = [res_treatment_dict[pred['class_ids'][0]]
+                   for pred in predictions]
+    print(predictions)
 
 
 def get_data_and_labels(treatment_df):
