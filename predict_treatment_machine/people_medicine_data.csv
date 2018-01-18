@@ -1,0 +1,51 @@
+person_id,age,company,sex,diagnosis,treatment
+219668696,65,Leumit,f,Psychiatric,Carbamazepine
+720209435,71,Maccabi,f,Psychiatric,Divalproex sodium
+668767960,49,Clalit,f,Psychiatric,Carbamazepine
+615199007,35,Leumit,f,Psychiatric,Divalproex sodium
+368531229,30,Maccabi,f,Psychiatric,Carbamazepine
+462538495,73,Maccabi,m,Back,Morphine
+208437792,58,Clalit,m,Back,Fentanyl
+463271014,31,Leumit,m,Back,Morphine
+240128632,43,Maccabi,m,Back,Fentanyl
+947052924,60,Meuhedet,m,Back,Morphine
+142426639,59,Meuhedet,f,Cholesterol,Atorvastatin
+404337017,79,Clalit,f,Cholesterol,Fluvastatin
+854262733,46,Maccabi,f,Cholesterol,Atorvastatin
+321673051,66,Meuhedet,f,Cholesterol,Fluvastatin
+430293333,30,Clalit,f,Cholesterol,Atorvastatin
+604660021,18,Maccabi,m,Neurologic,baclofen
+715516719,64,Meuhedet,m,Neurologic,Botox
+956467779,62,Clalit,m,Neurologic,baclofen
+584052860,32,Maccabi,m,Neurologic,Botox
+195489484,31,Meuhedet,m,Neurologic,baclofen
+953494188,23,Leumit,f,Diabetes,Metformin
+994368475,40,Maccabi,f,Diabetes,Sulfonylureas
+985608163,65,Meuhedet,f,Diabetes,Metformin
+242399999,52,Clalit,f,Diabetes,Sulfonylureas
+686223843,78,Maccabi,f,Diabetes,Metformin
+744578561,23,Clalit,m,Headaches_Migraine,Acetaminophen
+653294849,55,Leumit,m,Headaches_Migraine,Aspirin
+243977494,42,Maccabi,m,Headaches_Migraine,Acetaminophen
+216567317,69,Clalit,m,Headaches_Migraine,Aspirin
+872917910,18,Leumit,m,Headaches_Migraine,Acetaminophen
+709776823,77,Meuhedet,f,HBP,Thiazide diuretics
+476263660,60,Clalit,f,HBP,Beta blockers
+513680754,52,Leumit,f,HBP,Thiazide diuretics
+934527626,62,Meuhedet,f,HBP,Beta blockers
+315519719,70,Clalit,f,HBP,Thiazide diuretics
+669340685,33,Leumit,f,Joint,Acetaminophen
+628074494,58,Meuhedet,f,Joint,Nonsteroidal anti-inflammatory
+512433715,38,Clalit,f,Joint,Acetaminophen
+189370641,74,Leumit,f,Joint,Nonsteroidal anti-inflammatory
+384017133,19,Maccabi,f,Joint,Acetaminophen
+711373668,66,Clalit,m,Skin,mupirocin
+630109684,35,Maccabi,m,Skin,clindamycin
+189366829,55,Meuhedet,m,Skin,mupirocin
+330365946,26,Clalit,m,Skin,clindamycin
+931218910,26,Leumit,m,Skin,mupirocin
+813725833,57,Clalit,m,Respiratory,Decongestants
+798294445,18,Leumit,m,Respiratory,Cough suppressants
+369737343,49,Meuhedet,m,Respiratory,Decongestants
+841278728,29,Clalit,m,Respiratory,Cough suppressants
+294585006,22,Leumit,m,Respiratory,Decongestants
