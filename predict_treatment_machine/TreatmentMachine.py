@@ -32,35 +32,8 @@ def main():
     x_train, x_test, y_train, y_test = train_test_split(x_data, labels,
                                                         test_size=0.33,
                                                         random_state=42)
-    data_columns = treatment_df.columns.tolist()
-    numeric_columns = ['age']
-    data_columns = \
-        list(set(data_columns) - set(numeric_columns + ['treatment']))
-    numeric_features = {column: tf.feature_column.numeric_column(column) for
-                        column in numeric_columns}
-    categorical_features = {
-        column: tf.feature_column.categorical_column_with_hash_bucket(
-            column,
-            hash_bucket_size=1000)
-        for column in data_columns}
-
-    numeric_features.update(categorical_features)
-    feature_columns = numeric_features
-    feature_columns[
-        'sex'] = tf.feature_column.categorical_column_with_vocabulary_list(
-        'sex', ['f', 'm'])
-    age = tf.feature_column.bucketized_column(
-        feature_columns['age'],
-        boundaries=[0, 20, 40, 60, 80, 100])
-    feature_columns['age'] = age
-    input_function = tf.estimator.inputs.pandas_input_fn(x=x_train,
-                                                         y=y_train,
-                                                         batch_size=100,
-                                                         num_epochs=1000,
-                                                         shuffle=True)
-    feature_columns_list = list(feature_columns.values())
-
-    label_y = treatment_dict.keys()
+    feature_columns_list, input_function, label_y = get_feature_columns_and_input_function(
+        treatment_df, treatment_dict, x_train, y_train)
     print('values={} len={}'.format(treatment_dict.keys(), len(label_y)))
     model = tf.estimator.LinearClassifier(
         feature_columns=feature_columns_list, n_classes=len(label_y)+1)
@@ -88,6 +61,38 @@ def main():
     predictions = [res_treatment_dict[pred['class_ids'][0]]
                    for pred in predictions]
     print(predictions)
+
+
+def get_feature_columns_and_input_function(treatment_df, treatment_dict,
+                                           x_train, y_train):
+    data_columns = treatment_df.columns.tolist()
+    numeric_columns = ['age']
+    data_columns = \
+        list(set(data_columns) - set(numeric_columns + ['treatment']))
+    numeric_features = {column: tf.feature_column.numeric_column(column) for
+                        column in numeric_columns}
+    categorical_features = {
+        column: tf.feature_column.categorical_column_with_hash_bucket(
+            column,
+            hash_bucket_size=1000)
+        for column in data_columns}
+    numeric_features.update(categorical_features)
+    feature_columns = numeric_features
+    feature_columns[
+        'sex'] = tf.feature_column.categorical_column_with_vocabulary_list(
+        'sex', ['f', 'm'])
+    age = tf.feature_column.bucketized_column(
+        feature_columns['age'],
+        boundaries=[0, 20, 40, 60, 80, 100])
+    feature_columns['age'] = age
+    input_function = tf.estimator.inputs.pandas_input_fn(x=x_train,
+                                                         y=y_train,
+                                                         batch_size=100,
+                                                         num_epochs=1000,
+                                                         shuffle=True)
+    feature_columns_list = list(feature_columns.values())
+    label_y = treatment_dict.keys()
+    return feature_columns_list, input_function, label_y
 
 
 def get_data_and_labels(treatment_df):
