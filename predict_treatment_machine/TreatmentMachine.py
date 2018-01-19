@@ -4,7 +4,8 @@ import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report, \
+    precision_recall_fscore_support
 
 
 def beautify_treatment(treatment, treatment_dict):
@@ -36,7 +37,7 @@ def main():
                                                         random_state=42)
     feature_columns_list, input_function, label_y = get_feature_columns_and_input_function(
         treatment_df, treatment_dict, x_train, y_train)
-    model = get_trained_model(feature_columns_list, input_function, label_y,
+    model, y_test, predictions_trained = get_trained_model(feature_columns_list, input_function, label_y,
                               treatment_dict, x_test, y_test)
     question_data = get_input_diagnosis()
     x_test_question = pd.DataFrame([question_data])
@@ -47,9 +48,13 @@ def main():
                                             shuffle=False)
     predictions = list(model.predict(input_fn=prediction_function_question))
     res_treatment_dict = dict((v, k) for k, v in treatment_dict.items())
-    predictions = [res_treatment_dict[pred['class_ids'][0]]
+    predictions_medicine = [res_treatment_dict[pred['class_ids'][0]]
                    for pred in predictions]
-    print(predictions)
+    presicions_achieved = get_precentage_accurecy(y_test,predictions_trained)
+    precision = [presicions_achieved[pred['class_ids'][0]]
+                   for pred in predictions]
+    print(predictions_medicine[0])
+    print('{}%'.format(precision[0]*100.00))
 
 
 def get_trained_model(feature_columns_list, input_function, label_y,
@@ -66,7 +71,7 @@ def get_trained_model(feature_columns_list, input_function, label_y,
     predictions = list(model.predict(input_fn=prediction_function))
     predictions = [pred['class_ids'][0] for pred in predictions]
     print(classification_report(y_test, predictions))
-    return model
+    return model, y_test, predictions
 
 
 def get_feature_columns_and_input_function(treatment_df, treatment_dict,
@@ -105,6 +110,18 @@ def get_data_and_labels(treatment_df):
     x_data = treatment_df.drop(['treatment'], axis=1)
     labels = treatment_df['treatment']
     return x_data, labels
+
+def get_precentage_accurecy(y_true, y_pred):
+    p, r, f1, s = precision_recall_fscore_support(y_true, y_pred,
+                                                  labels=None,
+                                                  average=None,
+                                                  sample_weight=None
+                                                  )
+    num_medicine = np.arange(len(p))
+    return  {i: precision
+                            for i , precision in zip(num_medicine, p)}
+
+
 
 
 def remove_useless_columns(treatment_df):
