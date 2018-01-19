@@ -12,9 +12,9 @@ def beautify_treatment(treatment, treatment_dict):
 
 
 def get_input_diagnosis():
-    return {'diagnosis': input("what's your diagnosis?"),
-            'age': int(input("what's your age?")),
-            'sex': input("what's your gender? f/m")}
+    return {'diagnosis': input('whats your diagnosis? '),
+            'age': int(input('whats your age? ')),
+            'sex': input('whats your gender? f/m ')}
 
 
 def main():
@@ -63,7 +63,7 @@ def main():
     label_y = treatment_dict.keys()
     print('values={} len={}'.format(treatment_dict.keys(), len(label_y)))
     model = tf.estimator.LinearClassifier(
-        feature_columns=feature_columns_list, n_classes=20)
+        feature_columns=feature_columns_list, n_classes=len(label_y)+1)
 
     model.train(input_fn=input_function, steps=5000)
 
