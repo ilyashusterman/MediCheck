@@ -1,4 +1,4 @@
-person_id,age,company,sex,diagnosis,treatment
+person_instance,age,company,sex,diagnosis,treatment
 219668696,65,Leumit,f,Psychiatric,Carbamazepine
 720209435,71,Maccabi,f,Psychiatric,Divalproex sodium
 668767960,49,Clalit,f,Psychiatric,Carbamazepine
